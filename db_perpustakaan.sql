@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jun 07, 2020 at 03:52 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.5
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 08 Jun 2020 pada 06.43
+-- Versi server: 10.1.38-MariaDB
+-- Versi PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -24,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `db_buku`
+-- Struktur dari tabel `db_buku`
 --
 
 CREATE TABLE `db_buku` (
@@ -42,7 +43,7 @@ CREATE TABLE `db_buku` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `db_peminjaman`
+-- Struktur dari tabel `db_peminjaman`
 --
 
 CREATE TABLE `db_peminjaman` (
@@ -56,7 +57,7 @@ CREATE TABLE `db_peminjaman` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `db_users`
+-- Struktur dari tabel `db_users`
 --
 
 CREATE TABLE `db_users` (
@@ -65,21 +66,30 @@ CREATE TABLE `db_users` (
   `password` varchar(50) NOT NULL,
   `alamat` varchar(100) NOT NULL,
   `ttl` date NOT NULL,
+  `tempat_lahir` varchar(100) NOT NULL,
   `rules` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `db_users`
+--
+
+INSERT INTO `db_users` (`id_user`, `name`, `password`, `alamat`, `ttl`, `tempat_lahir`, `rules`) VALUES
+(2, 'aditya@gmail.com', 'aditya123', 'Sukoharjo', '2000-06-01', 'Sukoharjo', 'user'),
+(9, 'chandra@gmail.com', 'chandra123', 'Surakarta', '1999-09-09', 'Sukoharjo', 'user');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `db_buku`
+-- Indeks untuk tabel `db_buku`
 --
 ALTER TABLE `db_buku`
   ADD PRIMARY KEY (`id_buku`);
 
 --
--- Indexes for table `db_peminjaman`
+-- Indeks untuk tabel `db_peminjaman`
 --
 ALTER TABLE `db_peminjaman`
   ADD PRIMARY KEY (`id_peminjaman`),
@@ -87,33 +97,33 @@ ALTER TABLE `db_peminjaman`
   ADD KEY `id_buku` (`id_buku`);
 
 --
--- Indexes for table `db_users`
+-- Indeks untuk tabel `db_users`
 --
 ALTER TABLE `db_users`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `db_peminjaman`
+-- AUTO_INCREMENT untuk tabel `db_peminjaman`
 --
 ALTER TABLE `db_peminjaman`
   MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `db_users`
+-- AUTO_INCREMENT untuk tabel `db_users`
 --
 ALTER TABLE `db_users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `db_peminjaman`
+-- Ketidakleluasaan untuk tabel `db_peminjaman`
 --
 ALTER TABLE `db_peminjaman`
   ADD CONSTRAINT `db_peminjaman_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `db_users` (`id_user`);
