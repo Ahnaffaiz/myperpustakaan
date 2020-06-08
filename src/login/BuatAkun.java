@@ -44,7 +44,7 @@ public class BuatAkun extends javax.swing.JFrame {
         this.alamat = jAlamat.getText();
         this.ttl = jTTL.getText();
         this.tLahir = jTLahir.getText();
-        this.rules = jRules.getText();
+        this.rules = "user";
         
         MySQLConnection m = new MySQLConnection();
         Connection koneksi = m.conn;
@@ -58,12 +58,8 @@ public class BuatAkun extends javax.swing.JFrame {
                 koneksi.close();
                 JOptionPane.showMessageDialog(null, "Akun sudah terdaftar");
             }else{
-                if(rules.equals("admin")){
-                    koneksi.close();
-                    JOptionPane.showMessageDialog(null, "Gunakan rules ''user' untuk membuat akun");
-                }else if(rules.equals("user")){
-                    masukAkun();
-                }koneksi.close();
+                masukAkun();
+                koneksi.close();
             }
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, e);
@@ -98,8 +94,6 @@ public class BuatAkun extends javax.swing.JFrame {
         jTTL = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jRules = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jTLahir = new javax.swing.JTextField();
 
@@ -129,10 +123,6 @@ public class BuatAkun extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Rules");
-
-        jRules.setText("user");
-
         jLabel7.setText("Tempat Lahir");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -148,7 +138,6 @@ public class BuatAkun extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel6)
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -158,10 +147,9 @@ public class BuatAkun extends javax.swing.JFrame {
                             .addComponent(jPasswd)
                             .addComponent(jTTL)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton2))
-                            .addComponent(jRules, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))))
+                                .addComponent(jButton2)))))
                 .addGap(82, 82, 82))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(119, 119, 119)
@@ -193,11 +181,7 @@ public class BuatAkun extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTLahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRules, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -279,11 +263,9 @@ public class BuatAkun extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswd;
-    private javax.swing.JTextField jRules;
     private javax.swing.JTextField jTLahir;
     private javax.swing.JTextField jTTL;
     private javax.swing.JTextField jUsername;
