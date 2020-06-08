@@ -27,6 +27,7 @@ public class HalLogin extends javax.swing.JFrame {
     
     
     public HalLogin() {
+        super("Login Perpustakaan");
         initComponents();
         
     }
@@ -78,7 +79,6 @@ public class HalLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
         jLogin = new javax.swing.JButton();
-        jCancel = new javax.swing.JButton();
         txtPasswd = new javax.swing.JPasswordField();
         jBuatAkun = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -89,6 +89,7 @@ public class HalLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Login Form");
 
         jLabel2.setText("Username");
@@ -105,13 +106,6 @@ public class HalLogin extends javax.swing.JFrame {
         jLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jLoginActionPerformed(evt);
-            }
-        });
-
-        jCancel.setText("CANCEL");
-        jCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCancelActionPerformed(evt);
             }
         });
 
@@ -136,32 +130,29 @@ public class HalLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(20, 20, 20)
+                        .addGap(127, 127, 127)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1)
-                            .addComponent(txtPasswd, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                            .addComponent(txtUsername)))
+                            .addComponent(jLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGap(20, 20, 20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtPasswd)
+                                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jBuatAkun, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(jLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBuatAkun)))
-                .addContainerGap(78, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jCancel)
-                .addGap(137, 137, 137))
+                        .addGap(183, 183, 183)
+                        .addComponent(jLabel1)))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -169,13 +160,11 @@ public class HalLogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtPasswd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLogin)
-                    .addComponent(jBuatAkun))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCancel)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addComponent(jLogin)
+                .addGap(18, 18, 18)
+                .addComponent(jBuatAkun)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
@@ -191,13 +180,6 @@ public class HalLogin extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jLoginActionPerformed
 
-    private void jCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelActionPerformed
-        // TODO add your handling code here:
-        txtUsername.setText("");
-                txtPasswd.setText("");
-                txtUsername.requestFocus();
-    }//GEN-LAST:event_jCancelActionPerformed
-
     private void txtPasswdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswdActionPerformed
@@ -205,8 +187,8 @@ public class HalLogin extends javax.swing.JFrame {
     private void jBuatAkunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuatAkunActionPerformed
         // TODO add your handling code here:
         BuatAkun ba = new BuatAkun();
-                    ba.show();
-                    this.dispose();
+        ba.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jBuatAkunActionPerformed
 
     /**
@@ -246,7 +228,6 @@ public class HalLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBuatAkun;
-    private javax.swing.JButton jCancel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
