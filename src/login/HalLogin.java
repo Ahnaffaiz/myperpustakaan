@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import user.UserView;
 
 /**
  *
@@ -43,11 +44,11 @@ public class HalLogin extends javax.swing.JFrame {
             if(rs.next()){
                 if(rs.getString("rules").equals("admin")){
                     AdminView av = new AdminView();
-                    av.show();
+                    av.setVisible(true);
                     this.dispose();
                 }else if(rs.getString("rules").equals("user")){
-//                    formUser fu = new formUser();
-//                    fu.show();
+                    UserView uv = new UserView();
+                    uv.setVisible(true);
                     this.dispose();
                 }
             }else{
