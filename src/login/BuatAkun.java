@@ -13,6 +13,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import com.mysql.jdbc.Driver;
 import com.placeholder.PlaceHolder;
+import user.UserView;
 
 /**
  *
@@ -70,7 +71,10 @@ public class BuatAkun extends javax.swing.JFrame {
         MySQLConnection koneksi = new MySQLConnection();
         BuatAkunProses bap = new BuatAkunProses();
         bap.CreateAkun((MySQLConnection)koneksi, username, password, alamat, ttl, tLahir ,rules);
-        JOptionPane.showMessageDialog(null, "Akun berhasil ditambahkan");
+        JOptionPane.showMessageDialog(null, "Akun berhasil dibuat");
+        this.setVisible(false);
+        HalLogin login = new HalLogin();
+        login.setVisible(true);
     }
 
     /**

@@ -48,7 +48,7 @@ public class HalLogin extends javax.swing.JFrame {
                     av.setVisible(true);
                     this.dispose();
                 }else if(rs.getString("rules").equals("user")){
-                    UserView uv = new UserView();
+                    UserView uv = new UserView(rs.getString("id_user"));
                     uv.setVisible(true);
                     this.dispose();
                 }

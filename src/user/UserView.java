@@ -12,16 +12,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 import login.HalLogin;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
  * @author ahnaffaiz
  */
 public final class UserView extends javax.swing.JFrame {
-//    public String judul, sampul, jenis, pengarang, penerbit, tahun, stok, dipinjam, tersedia;
-//    public String id;
-    public DefaultTableModel tabModel; 
-    public DetailBuku db = null;
+    public String idUser;
+    public DefaultTableModel tabModel;
+    public DefaultTableModel tabModel2;
+    public DetailBuku db;
+    public String id;
+    public int denda=5000;
+    
     
     /**
      * Creates new form UserView
@@ -30,8 +36,18 @@ public final class UserView extends javax.swing.JFrame {
         super("Perpustakaan");
         initComponents();
         setJudul();
+        setJudulTablePinjam();
+        showBukuPinjam();
         
-        
+    }
+    
+    public UserView(String user) {
+        super("Perpustakaan");
+        initComponents();
+        setJudul();
+        this.idUser = user;
+        setJudulTablePinjam();
+        showBukuPinjam();
     }
 
     /**
@@ -53,7 +69,7 @@ public final class UserView extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblBukuPinjam = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         btnKeluar = new javax.swing.JButton();
 
@@ -105,7 +121,7 @@ public final class UserView extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("Daftar Buku Dipinjam");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblBukuPinjam.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -116,7 +132,12 @@ public final class UserView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        tblBukuPinjam.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblBukuPinjamMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblBukuPinjam);
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel5.setText("* Pilih Judul Buku yang ingin anda pinjam kemudian Klik  Lihat Detail");
@@ -168,11 +189,11 @@ public final class UserView extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnLihatDetail)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addGap(33, 33, 33)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,20 +215,24 @@ public final class UserView extends javax.swing.JFrame {
     private void tblCariBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCariBukuMouseClicked
         // TODO add your handling code here:
         
-//        db.judul = tblCariBuku.getValueAt(tblCariBuku.getSelectedRow(), 1).toString();
-//        db.jenis = tblCariBuku.getValueAt(tblCariBuku.getSelectedRow(), 2).toString();
-//        db.pengarang = tblCariBuku.getValueAt(tblCariBuku.getSelectedRow(), 3).toString();
-//        db.penerbit = tblCariBuku.getValueAt(tblCariBuku.getSelectedRow(), 4).toString();
-//        db.tahun = tblCariBuku.getValueAt(tblCariBuku.getSelectedRow(), 5).toString();
-//        db.stok = tblCariBuku.getValueAt(tblCariBuku.getSelectedRow(), 6).toString();
-//        db.stok = tblCariBuku.getValueAt(tblCariBuku.getSelectedRow(), 7).toString();
+        
+        
+        
     }//GEN-LAST:event_tblCariBukuMouseClicked
 
     private void btnLihatDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLihatDetailActionPerformed
         // TODO add your handling code here:
+        String idBook = tblCariBuku.getValueAt(tblCariBuku.getSelectedRow(), 0).toString();
+        String judulBook = tblCariBuku.getValueAt(tblCariBuku.getSelectedRow(), 1).toString();
+        String jenisBook = tblCariBuku.getValueAt(tblCariBuku.getSelectedRow(), 2).toString();
+        String pengarangBook = tblCariBuku.getValueAt(tblCariBuku.getSelectedRow(), 3).toString();
+        String penerbitBook = tblCariBuku.getValueAt(tblCariBuku.getSelectedRow(), 4).toString();
+        String tahunBook = tblCariBuku.getValueAt(tblCariBuku.getSelectedRow(), 5).toString();
+        String stokBook = tblCariBuku.getValueAt(tblCariBuku.getSelectedRow(), 6).toString();
+        String dipinjamBook = tblCariBuku.getValueAt(tblCariBuku.getSelectedRow(), 7).toString();
+        String tersediaBook = tblCariBuku.getValueAt(tblCariBuku.getSelectedRow(), 8).toString();
         
-        
-        new DetailBuku().setVisible(true);
+        new DetailBuku(idBook, judulBook, jenisBook, pengarangBook, penerbitBook, tahunBook, stokBook, dipinjamBook, tersediaBook, this.idUser).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnLihatDetailActionPerformed
 
@@ -216,6 +241,10 @@ public final class UserView extends javax.swing.JFrame {
         this.setVisible(false);
         new HalLogin().setVisible(true);
     }//GEN-LAST:event_btnKeluarActionPerformed
+
+    private void tblBukuPinjamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBukuPinjamMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblBukuPinjamMouseClicked
 
     /**
      * @param args the command line arguments
@@ -254,6 +283,14 @@ public final class UserView extends javax.swing.JFrame {
         tblCariBuku.setModel(tabModel);
     }
     
+    public void setJudulTablePinjam(){
+        Object[] title = {
+            "Judul Buku", "Tanggal Awal Pinjam", "Tanggal diKembalikan","Tanggal Awal", "Tanggal Akhir", "Tahun Terbit", "Denda"  
+        };
+        tabModel2 = new DefaultTableModel(null, title);
+        tblBukuPinjam.setModel(tabModel2);
+    }
+    
     public void cariBuku(String cari){
         MySQLConnection m = new MySQLConnection();
         Connection koneksi = m.conn;
@@ -290,6 +327,59 @@ public final class UserView extends javax.swing.JFrame {
         }
     }
     
+    public void showBukuPinjam(){
+        MySQLConnection m = new MySQLConnection();
+        Connection koneksi = m.conn;
+        Object[] data = new Object[7];
+        Object[] date = new Object[3];
+        
+        tabModel2.getDataVector().removeAllElements();
+        tabModel2.fireTableDataChanged();
+        
+        String query = "SELECT db_peminjaman.tgl_awal, db_peminjaman.tgl_akhir , db_buku.judul, db_buku.pengarang, db_buku.penerbit, db_buku.tahun FROM db_peminjaman, db_buku WHERE db_peminjaman.id_user='" + this.idUser + "'  AND db_peminjaman.id_buku=db_buku.id_buku";
+        
+        try {
+            Statement statement = koneksi.createStatement();
+            ResultSet result = statement.executeQuery(query);
+            
+            while(result.next()){
+                data[0] = result.getString("judul");
+                data[1] = result.getString("pengarang");
+                data[2] = result.getString("penerbit");
+                data[3] = result.getString("tgl_awal");
+                data[4] = result.getString("tgl_akhir");
+               
+                String str = result.getString("tahun");
+                String[] arr = str.split("-",3);
+                
+                data[5] = arr[0];
+                
+                String tglAwal = (String) data[3];
+                String[] arr2 = tglAwal.split("-",3);
+                String[] arr3 = arr2[2].split(" ",2);
+                
+                String tglAkhir = (String) data[4];
+                String[] arr4 = tglAkhir.split("-",3);
+                String[] arr5 = arr4[2].split(" ",2);
+                
+                
+                int lamaPinjam = Integer.parseInt(arr5[0]) - Integer.parseInt(arr3[0]);
+                int selisih = lamaPinjam - 7;
+                if(selisih>0){
+                    int dendaTotal = selisih*this.denda;
+                    data[6]="Rp" + dendaTotal;
+                } else {
+                    data[6] = "Rp" + 0;
+                }
+                
+                tabModel2.addRow(data);
+            }
+            
+        } catch (NumberFormatException | SQLException ex){
+            System.out.println(ex);
+        }
+    }
+    
     
     
 
@@ -304,7 +394,7 @@ public final class UserView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblBukuPinjam;
     private javax.swing.JTable tblCariBuku;
     private javax.swing.JTextField tfCariBuku;
     // End of variables declaration//GEN-END:variables

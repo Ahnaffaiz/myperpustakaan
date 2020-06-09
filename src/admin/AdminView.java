@@ -180,6 +180,11 @@ public final class AdminView extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblBuku);
 
         btnDetail.setText("Detail");
+        btnDetail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetailActionPerformed(evt);
+            }
+        });
 
         btnHapus.setText("Hapus");
         btnHapus.addActionListener(new java.awt.event.ActionListener() {
@@ -384,6 +389,8 @@ public final class AdminView extends javax.swing.JFrame {
             
                 if (rowInserted>0){
                     JOptionPane.showMessageDialog(null, "Hapus data Berhasil");
+                } else {
+                    
                 }
                 
                 
@@ -391,7 +398,7 @@ public final class AdminView extends javax.swing.JFrame {
         }
         
         catch (HeadlessException | SQLException ex){
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Tidak dapat menghapus buku yang sedang dipinjam");
         }
         
         showData();
@@ -403,6 +410,10 @@ public final class AdminView extends javax.swing.JFrame {
         this.setVisible(false);
         new HalLogin().setVisible(true);
     }//GEN-LAST:event_btnKeluarActionPerformed
+
+    private void btnDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDetailActionPerformed
 
     /**
      * @param args the command line arguments
@@ -499,9 +510,6 @@ public final class AdminView extends javax.swing.JFrame {
         AdminController admin = new AdminController();
         admin.insertBuku(koneksi, id, judul, sampul, jenis, pengarang, penerbit, tahun, stok, dipinjam);
         koneksi.close();
-        
-        
-        
         
     }
     

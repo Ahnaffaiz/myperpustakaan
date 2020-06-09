@@ -104,28 +104,6 @@ public class AdminController {
         
     }
     
-//    public void update(MySQLConnection m, String id){
-//        Connection koneksi = m.conn;
-//        
-//        String query = "DELETE FROM `db_buku` WHERE `id_buku`=?";
-//        
-//        try  {
-//            PreparedStatement statement = koneksi.prepareStatement(query);
-//            statement.setString(1, id);
-//            
-//            int rowInserted = statement.executeUpdate();
-//            
-//            if (rowInserted>0){
-//                JOptionPane.showMessageDialog(null, "Data Buku Berhasil Dihapus");
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Data Gagal Dihapus");
-//            }
-//            
-//        } catch (SQLException ex){
-//            System.out.println(ex);
-//        }
-//    }
-    
     
     
 }

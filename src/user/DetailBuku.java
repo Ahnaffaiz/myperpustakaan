@@ -6,10 +6,7 @@
 package user;
 
 import dbconnection.MySQLConnection;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,7 +15,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public final class DetailBuku extends javax.swing.JFrame {
     
-    public String id, judul, sampul, jenis, pengarang, penerbit, tahun, stok, dipinjam, tersedia;
+    public String id, judul, sampul, jenis, pengarang, penerbit, tahun, stok, dipinjam, tersedia, idUser ;
+    public int updateStok;
     public DefaultTableModel tabModel; 
 
     /**
@@ -27,9 +25,28 @@ public final class DetailBuku extends javax.swing.JFrame {
     public DetailBuku() {
         super("Details Buku");
         initComponents();
-        detailBuku(id);
         
     }
+    
+    public DetailBuku(String idBook, String judulBook, String jenisBook, String pengarangBook, String penerbitBook, String tahunBook, String stokBook, String dipinjamBook, String tersediaBook, String idUser ){
+        initComponents();
+        this.id = idBook;
+        this.judul = judulBook;
+        this.jenis = jenisBook;
+        this.pengarang = pengarangBook;
+        this.penerbit = penerbitBook;
+        this.stok = stokBook;
+        this.dipinjam = dipinjamBook;
+        this.tersedia = tersediaBook;
+        this.idUser = idUser;
+        this.tahun = tahunBook;
+        this.updateStok = (Integer.parseInt(this.dipinjam) + 1);
+        detailBuku();
+        
+        
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,7 +76,7 @@ public final class DetailBuku extends javax.swing.JFrame {
         tvTersedia = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnPinjam = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         tvKodeBuku = new javax.swing.JLabel();
@@ -130,7 +147,12 @@ public final class DetailBuku extends javax.swing.JFrame {
                 .addContainerGap(193, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Pinjam");
+        btnPinjam.setText("Pinjam");
+        btnPinjam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPinjamActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Kembali");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -155,7 +177,7 @@ public final class DetailBuku extends javax.swing.JFrame {
                 .addGap(196, 196, 196)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
@@ -166,8 +188,7 @@ public final class DetailBuku extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(tvKodeBuku, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(tvKodeBuku, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -239,7 +260,7 @@ public final class DetailBuku extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnPinjam)
                     .addComponent(jButton2))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
@@ -249,9 +270,21 @@ public final class DetailBuku extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        new UserView().setVisible(true);
+        new UserView(this.idUser).setVisible(true);
         this.setVisible(false);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnPinjamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPinjamActionPerformed
+        // TODO add your handling code here:
+        if(!this.tersedia.equals(null)){
+            pinjamBuku();
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Stok tidak tersedia");
+        }
+        
+    }//GEN-LAST:event_btnPinjamActionPerformed
 
     /**
      * @param args the command line arguments
@@ -282,45 +315,33 @@ public final class DetailBuku extends javax.swing.JFrame {
         });
     }
     
-    public void detailBuku(String id){
-        
-        MySQLConnection m = new MySQLConnection();
-        Connection koneksi = m.conn;
-        Object[] date = new Object[3];
-        
-        
-        String query = "SELECT * FROM db_buku WHERE `id_buku`='" + id + "'";
-        
-        try {
-            Statement statement = koneksi.createStatement();
-            ResultSet result = statement.executeQuery(query);
-            
-            while(result.next()){
-                tvKodeBuku.setText(result.getString("id_buku"));
-                tvJudul.setText(result.getString("judul"));
-                tvJenis.setText(result.getString("jenis"));
-                tvPengarang.setText(result.getString("pengarang"));
-                tvPenerbit.setText(result.getString("penerbit"));
-                String str = result.getString("tahun");
-                String[] arr = str.split("-",2);
-                
-                tvTahun.setText(arr[0]);
-                tvStok.setText(result.getString("stok"));
-                tvDipinjam.setText(result.getString("dipinjam"));
-                
-                int mStok = Integer.parseInt(result.getString("stok"));
-                int mDipinjam = Integer.parseInt(result.getString("dipinjam"));
-                int mTersedia = mStok - mDipinjam;
-                tvTersedia.setText(Integer.toString(mTersedia));
-                
-            }
-        } catch (NumberFormatException | SQLException ex){
-            System.out.println(ex);
-        }
+    public void detailBuku(){
+        tvKodeBuku.setText(this.id);
+        tvJudul.setText(this.judul);
+        tvJenis.setText(this.jenis);
+        tvPengarang.setText(this.pengarang);
+        tvPenerbit.setText(this.penerbit);
+        tvTahun.setText(this.tahun);
+        tvStok.setText(this.stok);
+        tvDipinjam.setText(this.dipinjam);
+        tvTersedia.setText(this.tersedia);
     }
+    
+    public void pinjamBuku(){
+        
+        MySQLConnection koneksi = new MySQLConnection();
+        UserController user = new UserController();
+        user.insertPinjamBuku(koneksi,this.idUser, this.id);
+        user.updateStok(this.updateStok, this.id);
+        koneksi.close();
+        
+    
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnPinjam;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
