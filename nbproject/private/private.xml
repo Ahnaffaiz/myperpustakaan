@@ -3,8 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/ahnaffaiz/NetBeansProjects/MyPerpustakaan/src/admin/DetailPeminjamanBuku.java</file>
+            <file>file:/home/ahnaffaiz/NetBeansProjects/MyPerpustakaan/src/login/BuatAkun.java</file>
             <file>file:/home/ahnaffaiz/NetBeansProjects/MyPerpustakaan/src/user/UserView.java</file>
+            <file>file:/home/ahnaffaiz/NetBeansProjects/MyPerpustakaan/src/user/DetailBuku.java</file>
+            <file>file:/home/ahnaffaiz/NetBeansProjects/MyPerpustakaan/src/admin/AdminController.java</file>
             <file>file:/home/ahnaffaiz/NetBeansProjects/MyPerpustakaan/src/admin/AdminView.java</file>
+            <file>file:/home/ahnaffaiz/NetBeansProjects/MyPerpustakaan/src/user/UserController.java</file>
         </group>
     </open-files>
 </project-private>

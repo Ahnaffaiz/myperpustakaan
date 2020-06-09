@@ -75,8 +75,6 @@ public final class AdminView extends javax.swing.JFrame {
         tfStok = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         tfDipinjam = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        tfSampul = new javax.swing.JTextField();
         btnTambah = new javax.swing.JButton();
         btnUbah = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
@@ -134,8 +132,6 @@ public final class AdminView extends javax.swing.JFrame {
         jLabel9.setText("Stok");
 
         jLabel10.setText("Dipinjam");
-
-        jLabel11.setText("Sampul");
 
         btnTambah.setText("Tambah");
         btnTambah.setMaximumSize(new java.awt.Dimension(150, 27));
@@ -239,18 +235,12 @@ public final class AdminView extends javax.swing.JFrame {
                                             .addComponent(tfTahun, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGap(96, 96, 96)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(tfStok, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(tfDipinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(tfSampul, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(tfStok, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(tfDipinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
@@ -304,11 +294,7 @@ public final class AdminView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(tfDipinjam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(tfSampul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(tfDipinjam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -413,6 +399,11 @@ public final class AdminView extends javax.swing.JFrame {
 
     private void btnDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailActionPerformed
         // TODO add your handling code here:
+        String idBook = tfKodeBuku.getText();
+        String judulBook = tfJudul.getText();
+        String dipinjamBook = tfDipinjam.getText();
+        new DetailPeminjamanBuku(idBook, judulBook, dipinjamBook).setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnDetailActionPerformed
 
     /**
@@ -460,7 +451,6 @@ public final class AdminView extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -482,7 +472,6 @@ public final class AdminView extends javax.swing.JFrame {
     private javax.swing.JTextField tfKodeBuku;
     private javax.swing.JTextField tfPenerbit;
     private javax.swing.JTextField tfPengarang;
-    private javax.swing.JTextField tfSampul;
     private javax.swing.JTextField tfStok;
     private javax.swing.JTextField tfTahun;
     // End of variables declaration//GEN-END:variables
@@ -498,7 +487,6 @@ public final class AdminView extends javax.swing.JFrame {
     public void insert(){
         this.id = tfKodeBuku.getText();
         this.judul = tfJudul.getText();
-        this.sampul = tfSampul.getText();
         this.jenis = (String) cbJenis.getSelectedItem();
         this.pengarang = tfPengarang.getText();
         this.penerbit = tfPenerbit.getText();
@@ -555,7 +543,6 @@ public final class AdminView extends javax.swing.JFrame {
     public void reset(){
         tfKodeBuku.setText("");
         tfJudul.setText("");
-        tfSampul.setText("");
         cbJenis.setSelectedItem("Novel");
         tfPengarang.setText("");
         tfPenerbit.setText("");

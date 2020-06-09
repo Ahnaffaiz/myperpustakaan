@@ -28,35 +28,30 @@ public class AdminController {
         //melakukan koneksi ke MySQL
         Connection koneksi = m.conn;
         
-        String query = "INSERT INTO `db_buku`(`id_buku`, `judul`, `sampul`, `jenis`, `pengarang`, `penerbit`, `tahun`, `stok`, `dipinjam`) VALUES (?,?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO `db_buku`(`id_buku`, `judul`, `jenis`, `pengarang`, `penerbit`, `tahun`, `stok`, `dipinjam`) VALUES (?,?,?,?,?,?,?,?)";
         
         try {
             PreparedStatement statement = koneksi.prepareStatement(query);
-            
-            // mapping nilai parameter dari query sql nya (sesuai urutan)
             statement.setString(1, id);
             statement.setString(2, judul);
-            statement.setString(3, sampul);
-            statement.setString(4, jenis);
-            statement.setString(5, pengarang);
-            statement.setString(6, penerbit);
-            statement.setString(7, tahun);
-            statement.setString(8, stok);
-            statement.setString(9, dipinjam);
-            
+            statement.setString(3, jenis);
+            statement.setString(4, pengarang);
+            statement.setString(5, penerbit);
+            statement.setString(6, tahun);
+            statement.setString(7, stok);
+            statement.setString(8, dipinjam);
             
             //menjalanakan query
             int rowInserted = statement.executeUpdate();
             
             if (rowInserted>0){
-                JOptionPane.showMessageDialog(null, "Data Buku Berhasil Ditambahkan");
-            } else {
-                JOptionPane.showMessageDialog(null, "Data Gagal Ditambahkan");
+                JOptionPane.showMessageDialog(null, "Buku Berhasil Ditambahkan");
             }
         }
         
-        catch (SQLException ex){
-            System.out.println("error " + ex);
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Buku gagal Ditambahkan");
+            System.out.println(ex);
         }
     }
     
@@ -94,14 +89,48 @@ public class AdminController {
             int rowInserted = statement.executeUpdate();
             
             if (rowInserted>0){
+                JOptionPane.showMessageDialog(null, "Update Data Buku Berhasil");
                 System.out.println("update data buku berhasil");
             }
         }
         
-        catch (SQLException ex){
+        catch (Exception ex){
             System.out.println("error " + ex);
+            JOptionPane.showMessageDialog(null, "Update Data Buku gagal");
         }
         
+    }
+    
+    public void updateStatus(String id){
+        MySQLConnection m = new MySQLConnection();
+        Connection koneksi = m.conn;
+        
+        String query = "UPDATE `db_peminjaman` SET `status`='1' WHERE db_peminjaman.id_peminjaman=" + id;
+        
+        try {
+            Statement statement = koneksi.createStatement();
+            statement.executeUpdate(query);
+        }
+        
+        catch(java.sql.SQLException ex){
+            System.out.println(ex);
+        }
+    }
+    
+    public void updateStok(int dipinjam, String id){
+        MySQLConnection m = new MySQLConnection();
+        Connection koneksi = m.conn;
+        
+        String query = "UPDATE `db_buku` SET `dipinjam`=" + dipinjam + " WHERE `id_buku`='" + id + "'";
+        
+        try {
+            Statement statement = koneksi.createStatement();
+            statement.executeUpdate(query);
+        }
+        
+        catch(java.sql.SQLException ex){
+            System.out.println("Stok gagal diperbarui");
+        }
     }
     
     

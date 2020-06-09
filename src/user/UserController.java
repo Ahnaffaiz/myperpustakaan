@@ -8,7 +8,6 @@ package user;
 import dbconnection.MySQLConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -31,7 +30,7 @@ public class UserController {
         //melakukan koneksi ke MySQL
         Connection koneksi = m.conn;
         
-        String query = "INSERT INTO `db_peminjaman`(`id_user`, `id_buku`, `tgl_awal`, `tgl_akhir`) VALUES (?,?,?,?)";
+        String query = "INSERT INTO `db_peminjaman`(`id_user`, `id_buku`, `tgl_awal`, `tgl_akhir`,`status`) VALUES (?,?,?,?,?)";
         
         try {
             PreparedStatement statement = koneksi.prepareStatement(query);
@@ -41,7 +40,7 @@ public class UserController {
             statement.setString(2, idBuku);
             statement.setString(3, dtf.format(now));
             statement.setString(4, dtf.format(akhir));
-            
+            statement.setString(5, "0");
             
             //menjalanakan query
             int rowInserted = statement.executeUpdate();
@@ -70,7 +69,7 @@ public class UserController {
         }
         
         catch(SQLException ex){
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Gagal mengubah status");
         }
     }
 }

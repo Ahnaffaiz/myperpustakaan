@@ -12,9 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 import login.HalLogin;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  *
@@ -119,7 +116,7 @@ public final class UserView extends javax.swing.JFrame {
         jLabel3.setText("* Cari buku yang akan dipinjam");
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel4.setText("Daftar Buku Dipinjam");
+        jLabel4.setText("Riwayat Peminjaman Buku");
 
         tblBukuPinjam.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -285,7 +282,7 @@ public final class UserView extends javax.swing.JFrame {
     
     public void setJudulTablePinjam(){
         Object[] title = {
-            "Judul Buku", "Tanggal Awal Pinjam", "Tanggal diKembalikan","Tanggal Awal", "Tanggal Akhir", "Tahun Terbit", "Denda"  
+            "Judul Buku", "Tanggal Awal Pinjam", "Tanggal diKembalikan","Tanggal Awal", "Tanggal Akhir", "Tahun Terbit", "Denda" , "Status" 
         };
         tabModel2 = new DefaultTableModel(null, title);
         tblBukuPinjam.setModel(tabModel2);
@@ -330,13 +327,13 @@ public final class UserView extends javax.swing.JFrame {
     public void showBukuPinjam(){
         MySQLConnection m = new MySQLConnection();
         Connection koneksi = m.conn;
-        Object[] data = new Object[7];
+        Object[] data = new Object[8];
         Object[] date = new Object[3];
         
         tabModel2.getDataVector().removeAllElements();
         tabModel2.fireTableDataChanged();
         
-        String query = "SELECT db_peminjaman.tgl_awal, db_peminjaman.tgl_akhir , db_buku.judul, db_buku.pengarang, db_buku.penerbit, db_buku.tahun FROM db_peminjaman, db_buku WHERE db_peminjaman.id_user='" + this.idUser + "'  AND db_peminjaman.id_buku=db_buku.id_buku";
+        String query = "SELECT db_peminjaman.tgl_awal, db_peminjaman.status, db_peminjaman.tgl_akhir , db_buku.judul, db_buku.pengarang, db_buku.penerbit, db_buku.tahun FROM db_peminjaman, db_buku WHERE db_peminjaman.id_user='" + this.idUser + "'  AND db_peminjaman.id_buku=db_buku.id_buku";
         
         try {
             Statement statement = koneksi.createStatement();
@@ -370,6 +367,13 @@ public final class UserView extends javax.swing.JFrame {
                     data[6]="Rp" + dendaTotal;
                 } else {
                     data[6] = "Rp" + 0;
+                }
+                
+                int cek = Integer.parseInt(result.getString("status"));
+                if(cek == 1){
+                    data[7] = "Dikembalikan";
+                } else {
+                    data[7] = "Belum dikembalikan";
                 }
                 
                 tabModel2.addRow(data);
